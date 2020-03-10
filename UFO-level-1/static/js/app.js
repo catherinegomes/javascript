@@ -1,92 +1,29 @@
+// Grab the DOMs and save to variables
 const input = d3.select("input")
 const button = d3.select("button")
-const table = d3.select("body").append("table")
+// Grab the table body and save to variable
+const tbody = d3.select("tbody")
 
+// Display the full table at home page
+data.filter(dataRow => dataRow).forEach(dataRow => {
+  let row = tbody.append("tr")
+  row.append("td").text(dataRow.datetime)
+  row.append("td").text(dataRow.city)
+  row.append("td").text(dataRow.state)
+  row.append("td").text(dataRow.country)
+  row.append("td").text(dataRow.shape)
+  row.append("td").text(dataRow.durationMinutes)
+  row.append("td").text(dataRow.comments)
+})
 
+// Assign function to handler
 const handler = function(){
-
+  // Wipe the prior table
+  tbody.html("")
+  // Create a filter based on the inputted value
   let filterCond = input.property("value")
-
-  table.html("")
-  
-  const headerRow = table.append("thead").append("tr")
-  headerRow.append("th").text("Date/Time")
-  headerRow.append("th").text("City")
-  headerRow.append("th").text("State")
-  headerRow.append("th").text("Country")
-  headerRow.append("th").text("Shape")
-  headerRow.append("th").text("Duration")
-  headerRow.append("th").text("Comments")
-
-  const tbody = table.append("tbody")
-
+  // Build table from the desired filter
   data.filter(dataRow => dataRow.datetime === filterCond).forEach(dataRow => {
-    let row = tbody.append("tr")
-    row.append("td").text(dataRow.datetime)
-    row.append("td").text(dataRow.city)
-    row.append("td").text(dataRow.state)
-    row.append("td").text(dataRow.country)
-    row.append("td").text(dataRow.shape)
-    row.append("td").text(dataRow.durationMinutes)
-    row.append("td").text(dataRow.comments)
-  })
-
-  data.filter(dataRow => dataRow.city === filterCond).forEach(dataRow => {
-    let row = tbody.append("tr")
-    row.append("td").text(dataRow.datetime)
-    row.append("td").text(dataRow.city)
-    row.append("td").text(dataRow.state)
-    row.append("td").text(dataRow.country)
-    row.append("td").text(dataRow.shape)
-    row.append("td").text(dataRow.durationMinutes)
-    row.append("td").text(dataRow.comments)
-  })
-
-  data.filter(dataRow => dataRow.state === filterCond).forEach(dataRow => {
-    let row = tbody.append("tr")
-    row.append("td").text(dataRow.datetime)
-    row.append("td").text(dataRow.city)
-    row.append("td").text(dataRow.state)
-    row.append("td").text(dataRow.country)
-    row.append("td").text(dataRow.shape)
-    row.append("td").text(dataRow.durationMinutes)
-    row.append("td").text(dataRow.comments)
-  })
-
-  data.filter(dataRow => dataRow.country === filterCond).forEach(dataRow => {
-    let row = tbody.append("tr")
-    row.append("td").text(dataRow.datetime)
-    row.append("td").text(dataRow.city)
-    row.append("td").text(dataRow.state)
-    row.append("td").text(dataRow.country)
-    row.append("td").text(dataRow.shape)
-    row.append("td").text(dataRow.durationMinutes)
-    row.append("td").text(dataRow.comments)
-  })
-
-  data.filter(dataRow => dataRow.shape === filterCond).forEach(dataRow => {
-    let row = tbody.append("tr")
-    row.append("td").text(dataRow.datetime)
-    row.append("td").text(dataRow.city)
-    row.append("td").text(dataRow.state)
-    row.append("td").text(dataRow.country)
-    row.append("td").text(dataRow.shape)
-    row.append("td").text(dataRow.durationMinutes)
-    row.append("td").text(dataRow.comments)
-  })
-
-  data.filter(dataRow => dataRow.durationMinutes === filterCond).forEach(dataRow => {
-    let row = tbody.append("tr")
-    row.append("td").text(dataRow.datetime)
-    row.append("td").text(dataRow.city)
-    row.append("td").text(dataRow.state)
-    row.append("td").text(dataRow.country)
-    row.append("td").text(dataRow.shape)
-    row.append("td").text(dataRow.durationMinutes)
-    row.append("td").text(dataRow.comments)
-  })
-
-  data.filter(dataRow => dataRow.comments === filterCond).forEach(dataRow => {
     let row = tbody.append("tr")
     row.append("td").text(dataRow.datetime)
     row.append("td").text(dataRow.city)
@@ -98,7 +35,7 @@ const handler = function(){
   })
 }
 
-
-
+// After user enters an input and hits Enter (return key), handler will apply filter and render data
 input.on("change", handler)
+// After user enters an input and clicks button, handler will apply filter and render data
 button.on("click", handler)
